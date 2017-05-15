@@ -1,3 +1,4 @@
-/cache/
-/config/development/
-/docs/*.bak
+cache/
+.idea
+config/development/
+docs/*.bak
