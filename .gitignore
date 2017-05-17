@@ -1,4 +1,6 @@
+vendor/
 cache/
-.idea
-config/development/
+.idea/
+config/*.local.php
 docs/*.bak
+*.lock

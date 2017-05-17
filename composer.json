@@ -1,1 +1,12 @@
-{}
+{
+  "name": "mateuschmitz/class-prediction",
+  "homepage": "https://github.com/mateuschmitz/class-prediction",
+  "license": "MIT",
+  "require": {
+    "php": ">= 7.0",
+    "ext-phalcon": "3.*"
+  },
+  "require-dev": {
+    "filp/whoops": "1.*"
+  }
+}
