@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Class Prediction</title>
+
+    <?php
+    $this->assets->addCss('css/bootstrap.min.css')
+        ->addCss('css/ie10-viewport-bug-workaround.css')
+        ->addCss('css/sticky-footer-navbar.css')
+        ->outputCss();
+    ?>
+</head>
+
+<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Class Prediction</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Anos Letivos <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/anos-letivos">Lista de Anos Letivos</a></li>
+                        <li><a href="/anos-letivos/adicionar">Novo Ano Letivo</a></li>
+                        <li><a href="/trimestres-letivos">Lista de Trimestres Letivos</a></li>
+                        <li><a href="/trimestres-letivos/adicionar">Novo Trimestre Letivo</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Turmas <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/turmas">Lista de Turmas</a></li>
+                        <li><a href="/turmas/adicionar">Nova Turma</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Disciplinas <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/disciplinas">Lista de Disciplinas</a></li>
+                        <li><a href="/disciplinas/adicionar">Nova Disciplina</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Sábados e Feriados <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/sabados-feriados/sabados">Lista de Sábados</a></li>
+                        <li><a href="/sabados-feriados/feriados">Lista de Feriados</a></li>
+                        <li><a href="/sabados-feriados/adicionar">Novo Sábado ou Feriado</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<!-- Show page content -->
+<?php echo $this->getContent(); ?>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted"><?= date('Y'); ?> &copy; <a href="https://m2sdigital.com" target="_blank">M2S Digital</a></p>
+    </div>
+</footer>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+    <?php
+        $this->assets->addJs('js/jquery.min.js')
+            ->addJs('js/bootstrap.min.js')
+            ->addJs('js/ie10-viewport-bug-workaround.js')
+            ->outputJs();
+    ?>
+
+</body>
+</html>
