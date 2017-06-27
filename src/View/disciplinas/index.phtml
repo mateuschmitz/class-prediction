@@ -1,0 +1,54 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p><?php $this->flashSession->output() ; ?></p>
+        </div>
+        <div class="col-sm-12">
+            <h1>Lista de Disciplinas</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-hover table-striped table-bordered text-center">
+                <thead">
+                <th class="text-center">Id</th>
+                <th class="text-center">Nome</th>
+                <th class="text-center">Aulas</th>
+                <th class="text-center">Trimestres</th>
+                <th class="text-center">Turmas</th>
+                <th class="text-center">Criado Em</th>
+                <th class="text-center">Opções</th>
+                </thead>
+                <?php
+                $disciplinas = \Application\Model\Disciplina::find();
+                if ($disciplinas->count() == 0) {
+                    echo "<tr><td colspan='7'>Não há disciplinas cadastrados</td></tr>";
+                }
+
+                foreach ($disciplinas as $disciplina) {
+                    echo "<tr>
+                            <td>{$disciplina->getId()}</td>
+                            <td>{$disciplina->getNome()}</td>";
+                    echo "<td>";
+                        echo ($disciplina->getSegunda() != 0) ? "Seg ({$disciplina->getSegunda()}); " : '';
+                        echo ($disciplina->getTerca() != 0) ? "Ter ({$disciplina->getTerca()}); " : '';
+                        echo ($disciplina->getQuarta() != 0) ? "Qua ({$disciplina->getQuarta()}); " : '';
+                        echo ($disciplina->getQuinta() != 0) ? "Qui ({$disciplina->getQuinta()}); " : '';
+                        echo ($disciplina->getSexta() != 0) ? "Sex ({$disciplina->getSexta()}); " : '';
+                    echo "</td>
+                            <td></td>
+                            <td></td>
+                            <td>" . (new \DateTime($disciplina->getCreated()))->format('d/m/Y H:i:s') . "</td>
+                            <td>
+                                <a class='btn btn-default' href='/disciplinas/{$disciplina->getId()}/editar' role='button'>Editar</a>
+                                <a class='btn btn-danger excluir' href='/disciplinas/{$disciplina->getId()}/excluir' role='button'>Excluir</a>
+                            </td>
+                        </tr>";
+                }
+                ?>
+            </table>
+        </div>
+    </div>
+</div>

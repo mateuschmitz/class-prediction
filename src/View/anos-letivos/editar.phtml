@@ -1,0 +1,41 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p><?php $this->flashSession->output() ; ?></p>
+        </div>
+        <div class="col-sm-12">
+            <h1>Editando Ano Escolar <?= $anoLetivo->getAno(); ?></h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <form action="/anos-letivos/<?=$anoLetivo->getId();?>/editar" method="POST">
+            <div class="form-group col-sm-4">
+                <label for="ano">Ano</label>
+                <select class="form-control" id="ano" name="ano">
+                    <option value="2017" <?php echo ($anoLetivo->getAno() == 2017) ? 'selected' : ''; ?>>2017</option>
+                    <option value="2018" <?php echo ($anoLetivo->getAno() == 2018) ? 'selected' : ''; ?>>2018</option>
+                    <option value="2019" <?php echo ($anoLetivo->getAno() == 2019) ? 'selected' : ''; ?>>2019</option>
+                    <option value="2020" <?php echo ($anoLetivo->getAno() == 2020) ? 'selected' : ''; ?>>2020</option>
+                    <option value="2021" <?php echo ($anoLetivo->getAno() == 2021) ? 'selected' : ''; ?>>2021</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="inicio">Data de Início</label>
+                <input type="text" class="form-control datepicker" id="inicio" name="inicio" placeholder="dd/mm/yyy"
+                    value="<?php echo (!is_null($anoLetivo->getInicio())) ? (new \DateTime($anoLetivo->getInicio()))->format('d/m/Y') : ''; ?>">
+            </div>
+
+            <div class="form-group col-sm-4">
+                <label for="fim">Data de Término</label>
+                <input type="text" class="form-control datepicker" id="fim" name="fim" placeholder="dd/mm/yyy"
+                    value="<?php if (!is_null($anoLetivo->getFim())) {echo (new \DateTime($anoLetivo->getFim()))->format('d/m/Y');} ?>">
+            </div>
+
+            <div class="form-group col-sm-offset-10 col-sm-2 text-right">
+                <button type="submit" class="btn btn-primary btn-block">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>

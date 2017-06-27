@@ -1,0 +1,48 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p><?php $this->flashSession->output() ; ?></p>
+        </div>
+        <div class="col-sm-12">
+            <h1>Lista de Trimestres Letivos</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-hover table-striped table-bordered text-center">
+                <thead">
+                <th class="text-center">Id</th>
+                <th class="text-center">Ano</th>
+                <th class="text-center">Nome</th>
+                <th class="text-center">Início</th>
+                <th class="text-center">Fim</th>
+                <th class="text-center">Criado Em</th>
+                <th class="text-center">Opções</th>
+                </thead>
+                <?php
+                $trimestres = \Application\Model\PeriodoAnual::find();
+                if ($trimestres->count() == 0) {
+                    echo "<tr><td colspan='7'>Não há anos trimestres cadastrados</td></tr>";
+                }
+
+                foreach ($trimestres as $trimestre) {
+                    echo "<tr>
+                            <td>{$trimestre->getId()}</td>
+                            <td>{$trimestre->getAnoEscolar()->getAno()}</td>
+                            <td>{$trimestre->getNome()}</td>
+                            <td>" . (new \DateTime($trimestre->getInicio()))->format('d/m/Y') . "</td>
+                            <td>" . (new \DateTime($trimestre->getFim()))->format('d/m/Y') . "</td>
+                            <td>" . (new \DateTime($trimestre->getCreated()))->format('d/m/Y H:i:s') . "</td>
+                            <td>
+                                <a class='btn btn-default' href='/trimestres-letivos/{$trimestre->getId()}/editar' role='button'>Editar</a>
+                                <a class='btn btn-danger excluir' href='/trimestres-letivos/{$trimestre->getId()}/excluir' role='button'>Excluir</a>
+                            </td>
+                        </tr>";
+                }
+                ?>
+            </table>
+        </div>
+    </div>
+</div>

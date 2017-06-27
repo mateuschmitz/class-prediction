@@ -18,9 +18,9 @@ class Turma extends BaseModel
     {
         $this->setSource('turmas');
         $this->hasManyToMany(
-            "id", __NAMESPACE__ . "\\TurmasDisciplinas",
+            "id", __NAMESPACE__ . "\\TurmaDisciplina",
             "turmaId", "disciplinaId",
-            __NAMESPACE__ . "\\Disciplinas", "id",
+            __NAMESPACE__ . "\\Disciplina", "id",
             array('alias' => 'turmasDisciplinas')
         );
     }

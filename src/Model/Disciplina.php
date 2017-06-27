@@ -6,8 +6,6 @@ class Disciplina extends BaseModel
 {
     protected $id;
 
-    protected $periodoAnualId;
-
     protected $nome;
 
     protected $domingo;
@@ -31,12 +29,17 @@ class Disciplina extends BaseModel
     public function initialize()
     {
         $this->setSource('disciplinas');
-        $this->belongsTo('periodoAnualId', __NAMESPACE__ . '\\PeriodosAnuais', 'id', array('alias' => 'periodoAnual'));
         $this->hasManyToMany(
-            "id", __NAMESPACE__ . "\\TurmasDisciplinas",
+            "id", __NAMESPACE__ . "\\TurmaDisciplina",
             "disciplinaId", "turmaId",
             __NAMESPACE__ . "\\Turmas", "id",
             array('alias' => 'turmasDisciplinas')
+        );
+        $this->hasManyToMany(
+            "id", __NAMESPACE__ . "\\PeriodoAnualDisciplina",
+            "disciplinaId", "periodoAnualId",
+            __NAMESPACE__ . "\\PeriodoAnual", "id",
+            array('alias' => 'periodosAnuais')
         );
     }
 

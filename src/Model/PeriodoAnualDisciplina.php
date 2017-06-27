@@ -2,16 +2,16 @@
 
 namespace Application\Model;
 
-class TurmaDisciplina extends BaseModel
+class PeriodoAnualDisciplina extends BaseModel
 {
-    protected $turmaId;
+    protected $periodoAnualId;
 
     protected $disciplinaId;
 
     public function initialize()
     {
-        $this->setSource('turmas_disciplinas');
-        $this->belongsTo('turmaId', __NAMESPACE__ . '\\Turma', 'id', array('alias' => 'turma'));
+        $this->setSource('periodos_anuais_disciplinas');
+        $this->belongsTo('periodoAnualId', __NAMESPACE__ . '\\PeriodoAnual', 'id', array('alias' => 'periodoAnual'));
         $this->belongsTo('disciplinaId', __NAMESPACE__ . '\\Disciplina', 'id', array('alias' => 'disciplina'));
     }
 

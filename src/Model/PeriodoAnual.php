@@ -21,8 +21,13 @@ class PeriodoAnual extends BaseModel
     public function initialize()
     {
         $this->setSource('periodos_anuais');
-        $this->belongsTo('anoEscolarId', __NAMESPACE__ . '\\AnosEscolares', 'id', array('alias' => 'anoEscolar'));
-        $this->hasMany("id", __NAMESPACE__ . "\\Disciplinas", "periodoAnualId", array('alias' => 'disciplinas'));
+        $this->belongsTo('anoEscolarId', __NAMESPACE__ . '\\AnoEscolar', 'id', array('alias' => 'anoEscolar'));
+        $this->hasManyToMany(
+            "id", __NAMESPACE__ . "\\PeriodoAnualDisciplina",
+            "periodoAnualId", "disciplinaId",
+            __NAMESPACE__ . "\\Disciplina", "id",
+            array('alias' => 'disciplinas')
+        );
     }
 
     public function validation()

@@ -19,7 +19,7 @@ class AnoEscolar extends BaseModel
     public function initialize()
     {
         $this->setSource('anos_escolares');
-        $this->hasMany("id", __NAMESPACE__ . "\\PeriodosAnuais", "anoEscolarId", array('alias' => 'periodosAnuais'));
+        $this->hasMany("id", __NAMESPACE__ . "\\PeriodoAnual", "anoEscolarId", array('alias' => 'periodosAnuais'));
     }
 
     public function validation()

@@ -14,6 +14,7 @@
     $this->assets->addCss('css/bootstrap.min.css')
         ->addCss('css/ie10-viewport-bug-workaround.css')
         ->addCss('css/sticky-footer-navbar.css')
+        ->addCss('css/bootstrap-datepicker.min.css')
         ->outputCss();
     ?>
 </head>
@@ -61,6 +62,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="/disciplinas">Lista de Disciplinas</a></li>
                         <li><a href="/disciplinas/adicionar">Nova Disciplina</a></li>
+                        <li><a href="/disciplinas">Configurar Disciplinas</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -94,6 +96,9 @@
         $this->assets->addJs('js/jquery.min.js')
             ->addJs('js/bootstrap.min.js')
             ->addJs('js/ie10-viewport-bug-workaround.js')
+            ->addJs('js/bootstrap-datepicker.min.js')
+            ->addJs('js/bootstrap-datepicker.pt-BR.min.js')
+            ->addJs('js/custom-scripts.js')
             ->outputJs();
     ?>
 
