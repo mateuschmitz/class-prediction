@@ -1,0 +1,42 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p><?php $this->flashSession->output() ; ?></p>
+        </div>
+        <div class="col-sm-12">
+            <h1>Lista de Feriados</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-hover table-striped table-bordered text-center">
+                <thead">
+                <th class="text-center">Id</th>
+                <th class="text-center">Data</th>
+                <th class="text-center">Criado Em</th>
+                <th class="text-center">Opções</th>
+                </thead>
+                <?php
+                $dias = \Application\Model\Feriado::find();
+                if ($dias->count() == 0) {
+                    echo "<tr><td colspan='4'>Não existem feriados cadastrados</td></tr>";
+                }
+
+                foreach ($dias as $dia) {
+                    echo "<tr>
+                            <td>{$dia->getId()}</td>
+                            <td>" . (new \DateTime($dia->getData()))->format('d/m/Y') . "</td>
+                            <td>" . (new \DateTime($dia->getCreated()))->format('d/m/Y H:i:s') . "</td>
+                            <td>
+                                <a class='btn btn-default' href='/feriados/{$dia->getId()}/editar' role='button'>Editar</a>
+                                <a class='btn btn-danger excluir' href='/feriados/{$dia->getId()}/excluir' role='button'>Excluir</a>
+                            </td>
+                        </tr>";
+                }
+                ?>
+            </table>
+        </div>
+    </div>
+</div>

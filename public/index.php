@@ -106,6 +106,32 @@ $disciplinas->get('/{id}/editar', 'editar');
 $disciplinas->post('/{id}/editar', 'editar');
 $disciplinas->get('/{id}/excluir', 'excluir');
 
+/**
+ * SÁBADOS
+ */
+$sabados = new \Phalcon\Mvc\Micro\Collection();
+$sabados->setHandler('Application\Controller\SabadosController', true);
+$sabados->setPrefix('/sabados');
+$sabados->get('/', 'index');
+$sabados->get('/adicionar', 'adicionar');
+$sabados->post('/adicionar', 'adicionar');
+$sabados->get('/{id}/editar', 'editar');
+$sabados->post('/{id}/editar', 'editar');
+$sabados->get('/{id}/excluir', 'excluir');
+
+/**
+ * FERIADOS
+ */
+$feriados = new \Phalcon\Mvc\Micro\Collection();
+$feriados->setHandler('Application\Controller\FeriadosController', true);
+$feriados->setPrefix('/feriados');
+$feriados->get('/', 'index');
+$feriados->get('/adicionar', 'adicionar');
+$feriados->post('/adicionar', 'adicionar');
+$feriados->get('/{id}/editar', 'editar');
+$feriados->post('/{id}/editar', 'editar');
+$feriados->get('/{id}/excluir', 'excluir');
+
 $app->notFound(function () use ($app) {
     $app->response->setStatusCode(404, "Not Found")->sendHeaders();
     echo '<center><h1>Desculpe, esta página não existe</h1></center>';
@@ -117,4 +143,6 @@ $app->mount($anosLetivos);
 $app->mount($trimestresLetivos);
 $app->mount($turmas);
 $app->mount($disciplinas);
+$app->mount($sabados);
+$app->mount($feriados);
 $app->handle();

@@ -81,7 +81,7 @@ class DisciplinasController extends \Phalcon\Mvc\Controller
             return $this->response->redirect($this->request->getHTTPReferer());
         }
 
-        $this->view->anoLetivo = $disciplina;
+        $this->view->disciplina = $disciplina;
         return $this->view->render('disciplinas', 'editar');
     }
 

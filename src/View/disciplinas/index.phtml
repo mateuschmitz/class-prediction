@@ -16,8 +16,6 @@
                 <th class="text-center">Id</th>
                 <th class="text-center">Nome</th>
                 <th class="text-center">Aulas</th>
-                <th class="text-center">Trimestres</th>
-                <th class="text-center">Turmas</th>
                 <th class="text-center">Criado Em</th>
                 <th class="text-center">Opções</th>
                 </thead>
@@ -31,15 +29,13 @@
                     echo "<tr>
                             <td>{$disciplina->getId()}</td>
                             <td>{$disciplina->getNome()}</td>";
-                    echo "<td>";
-                        echo ($disciplina->getSegunda() != 0) ? "Seg ({$disciplina->getSegunda()}); " : '';
-                        echo ($disciplina->getTerca() != 0) ? "Ter ({$disciplina->getTerca()}); " : '';
-                        echo ($disciplina->getQuarta() != 0) ? "Qua ({$disciplina->getQuarta()}); " : '';
-                        echo ($disciplina->getQuinta() != 0) ? "Qui ({$disciplina->getQuinta()}); " : '';
-                        echo ($disciplina->getSexta() != 0) ? "Sex ({$disciplina->getSexta()}); " : '';
-                    echo "</td>
-                            <td></td>
-                            <td></td>
+                        echo "<td>";
+                            echo ($disciplina->getSegunda() != 0) ? "Seg ({$disciplina->getSegunda()}); " : '';
+                            echo ($disciplina->getTerca() != 0) ? "Ter ({$disciplina->getTerca()}); " : '';
+                            echo ($disciplina->getQuarta() != 0) ? "Qua ({$disciplina->getQuarta()}); " : '';
+                            echo ($disciplina->getQuinta() != 0) ? "Qui ({$disciplina->getQuinta()}); " : '';
+                            echo ($disciplina->getSexta() != 0) ? "Sex ({$disciplina->getSexta()}); " : '';
+                        echo "</td>
                             <td>" . (new \DateTime($disciplina->getCreated()))->format('d/m/Y H:i:s') . "</td>
                             <td>
                                 <a class='btn btn-default' href='/disciplinas/{$disciplina->getId()}/editar' role='button'>Editar</a>
