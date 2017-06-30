@@ -1,0 +1,52 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p><?php $this->flashSession->output() ; ?></p>
+        </div>
+        <div class="col-sm-12">
+            <h1>Horários da Turma <?=$turma->getNome();?></h1>
+        </div>
+        <div class="col-sm-12">
+            <h3><?=$trimestre->getNome() . " de " . $trimestre->getAnoEscolar()->getAno();?></h3>
+        </div>
+
+        <div class="col-sm-12">
+            <table class="table table-hover table-striped table-bordered text-center">
+                <tr>
+                    <th class="text-center">Disciplina</th>
+                    <th class="text-center">Segunda</th>
+                    <th class="text-center">Terça</th>
+                    <th class="text-center">Quarta</th>
+                    <th class="text-center">Quinta</th>
+                    <th class="text-center">Sexta</th>
+                </tr>
+
+                <?php
+                    $disciplinas = \Application\Model\Disciplina::find();
+                    foreach ($disciplinas as $disciplina) {
+                        $diasSemana = array('segunda', 'terca', 'quarta', 'quinta', 'sexta');
+                        echo "<tr>
+                                <td>{$disciplina->getNome()}</td>
+                                <td>
+                                    <select class='form-control' name='segunda' id='segunda'>
+                                        <option value='0'>0</option>
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                        <option value='3'>3</option>
+                                        <option value='4'>4</option>
+                                        <option value='5'>5</option>
+                                    </select>
+                                </td>";
+                        echo "</tr>";
+                    }
+                ?>
+            </table>
+        </div>
+
+    </div>
+
+
+
+
+</div>
