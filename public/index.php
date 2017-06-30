@@ -91,6 +91,8 @@ $turmas->get('/adicionar', 'adicionar');
 $turmas->post('/adicionar', 'adicionar');
 $turmas->get('/{id}/editar', 'editar');
 $turmas->post('/{id}/editar', 'editar');
+$turmas->get('/{turma}/horarios/{trimestre}', 'configurarAulas');
+$turmas->post('/{turma}/horarios/{trimestre}', 'configurarAulas');
 $turmas->get('/{id}/excluir', 'excluir');
 
 /**

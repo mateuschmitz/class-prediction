@@ -14,74 +14,7 @@
         <div class="row">
             <div class="form-group col-sm-6">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome" value="<?=$disciplina->getNome();?>">
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-12">
-                <h3>Períodos de aula:</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-1">
-                <label for="segunda">Segunda</label>
-                <select class="form-control" name="segunda" id="segunda">
-                    <?php $id = $disciplina->getSegunda(); ?>
-                    <option value="0" <? echo $id == 0 ? 'selected' : ''; ?>>0</option>
-                    <option value="1" <? echo $id == 1 ? 'selected' : ''; ?>>1</option>
-                    <option value="2" <? echo $id == 2 ? 'selected' : ''; ?>>2</option>
-                    <option value="3" <? echo $id == 3 ? 'selected' : ''; ?>>3</option>
-                    <option value="4" <? echo $id == 4 ? 'selected' : ''; ?>>4</option>
-                    <option value="5" <? echo $id == 5 ? 'selected' : ''; ?>>5</option>
-                </select>
-            </div>
-            <div class="form-group col-sm-1">
-                <label for="terca">Terça</label>
-                <select class="form-control" name="terca" id="terca">
-                    <?php $id = $disciplina->getTerca(); ?>
-                    <option value="0" <? echo $id == 0 ? 'selected' : ''; ?>>0</option>
-                    <option value="1" <? echo $id == 1 ? 'selected' : ''; ?>>1</option>
-                    <option value="2" <? echo $id == 2 ? 'selected' : ''; ?>>2</option>
-                    <option value="3" <? echo $id == 3 ? 'selected' : ''; ?>>3</option>
-                    <option value="4" <? echo $id == 4 ? 'selected' : ''; ?>>4</option>
-                    <option value="5" <? echo $id == 5 ? 'selected' : ''; ?>>5</option>
-                </select>
-            </div>
-            <div class="form-group col-sm-1">
-                <label for="quarta">Quarta</label>
-                <select class="form-control" name="quarta" id="quarta">
-                    <?php $id = $disciplina->getQuarta(); ?>
-                    <option value="0" <? echo $id == 0 ? 'selected' : ''; ?>>0</option>
-                    <option value="1" <? echo $id == 1 ? 'selected' : ''; ?>>1</option>
-                    <option value="2" <? echo $id == 2 ? 'selected' : ''; ?>>2</option>
-                    <option value="3" <? echo $id == 3 ? 'selected' : ''; ?>>3</option>
-                    <option value="4" <? echo $id == 4 ? 'selected' : ''; ?>>4</option>
-                    <option value="5" <? echo $id == 5 ? 'selected' : ''; ?>>5</option>
-                </select>
-            </div>
-            <div class="form-group col-sm-1">
-                <label for="quinta">Quinta</label>
-                <select class="form-control" name="quinta" id="quinta">
-                    <?php $id = $disciplina->getQuinta(); ?>
-                    <option value="0" <? echo $id == 0 ? 'selected' : ''; ?>>0</option>
-                    <option value="1" <? echo $id == 1 ? 'selected' : ''; ?>>1</option>
-                    <option value="2" <? echo $id == 2 ? 'selected' : ''; ?>>2</option>
-                    <option value="3" <? echo $id == 3 ? 'selected' : ''; ?>>3</option>
-                    <option value="4" <? echo $id == 4 ? 'selected' : ''; ?>>4</option>
-                    <option value="5" <? echo $id == 5 ? 'selected' : ''; ?>>5</option>
-                </select>
-            </div>
-            <div class="form-group col-sm-1">
-                <label for="sexta">Sexta</label>
-                <select class="form-control" name="sexta" id="sexta">
-                    <?php $id = $disciplina->getSexta(); ?>
-                    <option value="0" <? echo $id == 0 ? 'selected' : ''; ?>>0</option>
-                    <option value="1" <? echo $id == 1 ? 'selected' : ''; ?>>1</option>
-                    <option value="2" <? echo $id == 2 ? 'selected' : ''; ?>>2</option>
-                    <option value="3" <? echo $id == 3 ? 'selected' : ''; ?>>3</option>
-                    <option value="4" <? echo $id == 4 ? 'selected' : ''; ?>>4</option>
-                    <option value="5" <? echo $id == 5 ? 'selected' : ''; ?>>5</option>
-                </select>
+                <input type="text" class="form-control" id="nome" name="nome" value="<?=$disciplina->getNome();?>" required>
             </div>
         </div>
 

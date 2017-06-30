@@ -21,7 +21,13 @@ class Turma extends BaseModel
             "id", __NAMESPACE__ . "\\TurmaDisciplina",
             "turmaId", "disciplinaId",
             __NAMESPACE__ . "\\Disciplina", "id",
-            array('alias' => 'turmasDisciplinas')
+            array('alias' => 'disciplinas')
+        );
+        $this->hasManyToMany(
+            "id", __NAMESPACE__ . "\\TurmaDisciplina",
+            "turmaId", "periodoAnualId",
+            __NAMESPACE__ . "\\PeriodoAnual", "id",
+            array('alias' => 'periodosAnuais')
         );
     }
 

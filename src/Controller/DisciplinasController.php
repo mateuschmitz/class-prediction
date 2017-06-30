@@ -22,11 +22,6 @@ class DisciplinasController extends \Phalcon\Mvc\Controller
 
                 $disciplina = (new \Application\Model\Disciplina())
                     ->setNome($dados['nome'])
-                    ->setSegunda($dados['segunda'])
-                    ->setTerca($dados['terca'])
-                    ->setQuarta($dados['quarta'])
-                    ->setQuinta($dados['quinta'])
-                    ->setSexta($dados['sexta'])
                     ->setCreated(date('Y-m-d H:i:s'));
 
                 if ($disciplina->create() == false) {
@@ -62,11 +57,6 @@ class DisciplinasController extends \Phalcon\Mvc\Controller
                 }
 
                 $disciplina->setNome($dados['nome'])
-                    ->setSegunda($dados['segunda'])
-                    ->setTerca($dados['terca'])
-                    ->setQuarta($dados['quarta'])
-                    ->setQuinta($dados['quinta'])
-                    ->setSexta($dados['sexta'])
                     ->setCreated(date('Y-m-d H:i:s'));
 
                 if ($disciplina->update() == false) {

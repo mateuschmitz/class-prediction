@@ -10,76 +10,12 @@
     </div>
 
     <form action="/disciplinas/adicionar" method="POST">
-
         <div class="row">
             <div class="form-group col-sm-6">
                 <label for="nome">Nome</label>
-                <input type="text" class="form-control" id="nome" name="nome" placeholder="Ex.: Português">
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Ex.: Português" required>
             </div>
         </div>
-        <div class="row">
-            <div class="form-group col-sm-12">
-                <h3>Períodos de aula:</h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col-sm-1">
-                <label for="segunda">Segunda</label>
-                <select class="form-control" name="segunda" id="segunda">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group col-sm-1">
-                <label for="terca">Terça</label>
-                <select class="form-control" name="terca" id="terca">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group col-sm-1">
-                <label for="quarta">Quarta</label>
-                <select class="form-control" name="quarta" id="quarta">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group col-sm-1">
-                <label for="quinta">Quinta</label>
-                <select class="form-control" name="quinta" id="quinta">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-            <div class="form-group col-sm-1">
-                <label for="sexta">Sexta</label>
-                <select class="form-control" name="sexta" id="sexta">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-        </div>
-
         <div class="form-group col-sm-offset-10 col-sm-2 text-right">
             <button type="submit" class="btn btn-primary btn-block">Salvar</button>
         </div>

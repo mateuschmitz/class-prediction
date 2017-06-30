@@ -33,10 +33,10 @@ class Disciplina extends BaseModel
             "id", __NAMESPACE__ . "\\TurmaDisciplina",
             "disciplinaId", "turmaId",
             __NAMESPACE__ . "\\Turmas", "id",
-            array('alias' => 'turmasDisciplinas')
+            array('alias' => 'turmas')
         );
         $this->hasManyToMany(
-            "id", __NAMESPACE__ . "\\PeriodoAnualDisciplina",
+            "id", __NAMESPACE__ . "\\TurmaDisciplina",
             "disciplinaId", "periodoAnualId",
             __NAMESPACE__ . "\\PeriodoAnual", "id",
             array('alias' => 'periodosAnuais')
