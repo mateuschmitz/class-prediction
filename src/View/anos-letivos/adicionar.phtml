@@ -13,7 +13,8 @@
         <form action="/anos-letivos/adicionar" method="POST">
             <div class="form-group col-sm-4">
                 <label for="ano">Ano</label>
-                <select class="form-control" id="ano" name="ano">
+                <select class="form-control" id="ano" name="ano" required>
+                    <option></option>
                     <option value="2017">2017</option>
                     <option value="2018">2018</option>
                     <option value="2019">2019</option>
@@ -23,12 +24,12 @@
             </div>
             <div class="form-group col-sm-4">
                 <label for="inicio">Data de Início</label>
-                <input type="text" class="form-control datepicker" id="inicio" name="inicio" placeholder="dd/mm/yyy">
+                <input type="text" class="form-control datepicker" id="inicio" name="inicio" placeholder="dd/mm/yyy" required>
             </div>
 
             <div class="form-group col-sm-4">
                 <label for="fim">Data de Término</label>
-                <input type="text" class="form-control datepicker" id="fim" name="fim" placeholder="dd/mm/yyy">
+                <input type="text" class="form-control datepicker" id="fim" name="fim" placeholder="dd/mm/yyy" required>
             </div>
 
             <div class="form-group col-sm-offset-10 col-sm-2 text-right">

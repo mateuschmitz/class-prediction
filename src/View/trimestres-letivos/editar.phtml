@@ -28,18 +28,18 @@
             <div class="form-group col-sm-3">
                 <label for="nome">Trimestre</label>
                 <input type="text" class="form-control" id="nome" name="nome" placeholder="Ex.: 1º Trimestre"
-                    value="<?=$trimestre->getNome();?>">
+                    value="<?=$trimestre->getNome();?>" required>
             </div>
             <div class="form-group col-sm-3">
                 <label for="inicio">Data de Início</label>
                 <input type="text" class="form-control datepicker" id="inicio" name="inicio" placeholder="dd/mm/yyy"
-                    value="<?=(new \DateTime($trimestre->getInicio()))->format('d/m/Y');?>">
+                    value="<?=(new \DateTime($trimestre->getInicio()))->format('d/m/Y');?>" required>
             </div>
 
             <div class="form-group col-sm-3">
                 <label for="fim">Data de Término</label>
                 <input type="text" class="form-control datepicker" id="fim" name="fim" placeholder="dd/mm/yyy"
-                    value="<?=(new \DateTime($trimestre->getFim()))->format('d/m/Y');?>">
+                    value="<?=(new \DateTime($trimestre->getFim()))->format('d/m/Y');?>" required>
             </div>
 
             <div class="form-group col-sm-offset-10 col-sm-2 text-right">
