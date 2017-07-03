@@ -95,4 +95,24 @@ class DisciplinasController extends \Phalcon\Mvc\Controller
         $this->flashSession->success("Disciplina deletada com sucesso!");
         return $this->response->redirect($this->request->getHTTPReferer());
     }
+
+    public function configurarAulas($disciplina, $trimestre)
+    {
+        $disciplina = \Application\Model\Disciplina::findFirst($disciplina);
+        if (!$disciplina) {
+            $this->flashSession->error("Disciplina não encontrada!");
+            return $this->response->redirect($this->request->getHTTPReferer());
+        }
+
+        $trimestre = \Application\Model\PeriodoAnual::findFirst($trimestre);
+        if (!$trimestre) {
+            $this->flashSession->error("Trimestre não encontrado!");
+            return $this->response->redirect($this->request->getHTTPReferer());
+        }
+
+        $this->view->disciplina = $disciplina;
+        $this->view->trimestre  = $trimestre;
+
+        return $this->view->render('disciplinas', 'configurar-aulas');
+    }
 }

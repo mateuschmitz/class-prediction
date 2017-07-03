@@ -17,6 +17,8 @@ $app['db'] = function() {
 $app['view'] = function() {
     $view = new \Phalcon\Mvc\View();
     $view->setViewsDir('..' . DS . 'src' . DS . 'View' . DS);
+    $view->setLayoutsDir('..' . DS . 'src' . DS . 'View');
+    $view->setLayout('index');
     return $view;
 };
 
@@ -91,8 +93,6 @@ $turmas->get('/adicionar', 'adicionar');
 $turmas->post('/adicionar', 'adicionar');
 $turmas->get('/{id}/editar', 'editar');
 $turmas->post('/{id}/editar', 'editar');
-$turmas->get('/{turma}/horarios/{trimestre}', 'configurarAulas');
-$turmas->post('/{turma}/horarios/{trimestre}', 'configurarAulas');
 $turmas->get('/{id}/excluir', 'excluir');
 
 /**
@@ -104,6 +104,8 @@ $disciplinas->setPrefix('/disciplinas');
 $disciplinas->get('/', 'index');
 $disciplinas->get('/adicionar', 'adicionar');
 $disciplinas->post('/adicionar', 'adicionar');
+$disciplinas->get('/{disciplina}/horarios/{trimestre}', 'configurarAulas');
+$disciplinas->post('/{disciplina}/horarios/{trimestre}', 'configurarAulas');
 $disciplinas->get('/{id}/editar', 'editar');
 $disciplinas->post('/{id}/editar', 'editar');
 $disciplinas->get('/{id}/excluir', 'excluir');

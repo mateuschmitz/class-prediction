@@ -94,26 +94,4 @@ class TurmasController extends \Phalcon\Mvc\Controller
         $this->flashSession->success("Turma deletada com sucesso!");
         return $this->response->redirect($this->request->getHTTPReferer());
     }
-
-    public function configurarAulas($turma, $trimestre)
-    {
-        $turma = \Application\Model\Turma::findFirst($turma);
-        if (!$turma) {
-            $this->flashSession->error("Turma não encontrada!");
-            return $this->response->redirect($this->request->getHTTPReferer());
-        }
-
-        $trimestre = \Application\Model\PeriodoAnual::findFirst($trimestre);
-        if (!$trimestre) {
-            $this->flashSession->error("Trimestre não encontrado!");
-            return $this->response->redirect($this->request->getHTTPReferer());
-        }
-
-        $this->view->turma     = $turma;
-        $this->view->trimestre = $trimestre;
-        $this->view->horarios  = \Application\Model\TurmaDisciplina::find(
-            "turmaId = {$turma->getId()} AND periodoAnualId = {$trimestre->getId()}"
-        );
-        return $this->view->render('turmas', 'configurar-aulas');
-    }
 }
