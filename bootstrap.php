@@ -2,10 +2,11 @@
 
 /**
  * <description>
- *
- * @author  Mateus Schmitz <mateus@m2sdigital.com>
+ * 
+ * @author  Mateus Schmitz <matteuschmitz@gmail.com>
  * @license MIT License
  * @package Bootstrap
+ * @version alpha
  */
 namespace Bootstrap;
 
@@ -30,14 +31,14 @@ class Bootstrap
             $env . DS . 'config.php',
             'config.local.php'
         );
-
+        
         $config = array();
         foreach ($configFiles as $file) {
             if (is_readable('config' . DS . $file)) {
                 $config = array_merge_recursive($config, require('config' . DS . $file));
             }
         }
-
+        
         return new Config($config);
     }
 
@@ -63,7 +64,7 @@ class Bootstrap
         // set connections
         foreach ($settings->databases as $database => $content) {
 
-            $adapter = isset($content['adapter']) ? $content['adapter'] : "\Phalcon\Db\Adapter\Pdo\Mysql";
+            $adapter = isset($content['adapter']) ? $content['adapter'] : "Phalcon\Db\Adapter\Pdo\Mysql";
             unset($content['adapter']);
 
             $di->set($database, function () use ($adapter, $content){
@@ -72,7 +73,7 @@ class Bootstrap
                 );
             });
         }
-
+       
         return $di;
     }
 

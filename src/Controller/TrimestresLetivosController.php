@@ -2,14 +2,12 @@
 
 namespace Application\Controller;
 
-class TrimestresLetivosController extends \Phalcon\Mvc\Controller
+class TrimestresLetivosController extends BaseController
 {
     public function index()
-    {
-        return $this->view->render('trimestres-letivos', 'index');
-    }
+    {}
 
-    public function adicionar()
+    public function adicionarAction()
     {
         if ($this->request->isPost()) {
 
@@ -48,11 +46,9 @@ class TrimestresLetivosController extends \Phalcon\Mvc\Controller
             $this->flashSession->success("Trimestre Letivo salvo com sucesso!");
             return $this->response->redirect($this->request->getHTTPReferer());
         }
-
-        return $this->view->render('trimestres-letivos', 'adicionar');
     }
 
-    public function editar($id)
+    public function editarAction($id)
     {
         $trimestre = \Application\Model\PeriodoAnual::findFirst($id);
         if (!$trimestre) {
@@ -97,10 +93,9 @@ class TrimestresLetivosController extends \Phalcon\Mvc\Controller
         }
 
         $this->view->trimestre = $trimestre;
-        return $this->view->render('trimestres-letivos', 'editar');
     }
 
-    public function excluir($id)
+    public function excluirAction($id)
     {
         $trimestre = \Application\Model\PeriodoAnual::findFirst($id);
         if (!$trimestre) {
@@ -118,6 +113,5 @@ class TrimestresLetivosController extends \Phalcon\Mvc\Controller
         }
 
         $this->flashSession->success("Trimestre Letivo deletado com sucesso!");
-        return $this->response->redirect($this->request->getHTTPReferer());
     }
 }

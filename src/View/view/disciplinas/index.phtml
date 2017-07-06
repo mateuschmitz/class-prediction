@@ -29,16 +29,29 @@
                     echo "<tr>
                             <td>{$disciplina->getId()}</td>
                             <td>{$disciplina->getNome()}</td>";
-//                        echo "<td>";
-//                            echo ($disciplina->getSegunda() != 0) ? "Seg ({$disciplina->getSegunda()}); " : '';
-//                            echo ($disciplina->getTerca() != 0) ? "Ter ({$disciplina->getTerca()}); " : '';
-//                            echo ($disciplina->getQuarta() != 0) ? "Qua ({$disciplina->getQuarta()}); " : '';
-//                            echo ($disciplina->getQuinta() != 0) ? "Qui ({$disciplina->getQuinta()}); " : '';
-//                            echo ($disciplina->getSexta() != 0) ? "Sex ({$disciplina->getSexta()}); " : '';
                         echo "</td>
                             <td>" . (new \DateTime($disciplina->getCreated()))->format('d/m/Y H:i:s') . "</td>
                             <td>
                                 <a class='btn btn-default' href='/disciplinas/{$disciplina->getId()}/editar' role='button'>Editar</a>
+                                <div class=\"btn-group\">
+                                    <button type=\"button\" class=\"btn btn-info dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
+                                        Configurar Aulas <span class=\"caret\"></span>
+                                    </button>
+                                    <ul class=\"dropdown-menu\">";
+
+                                        $anos = \Application\Model\AnoEscolar::find();
+                                        foreach ($anos as $ano) {
+                                            echo "<li class='dropdown-submenu'>
+                                                    <a class='test test-1' href='#'>{$ano->getAno()} <span class='caret'></span></a>
+                                                    <ul class='dropdown-menu'>";
+                                            foreach ($ano->getPeriodosAnuais() as $trimestre) {
+                                                echo "<li><a href='/disciplinas/{$disciplina->getId()}/configurar-aulas/{$trimestre->getId()}'>{$trimestre->getNome()}</a></li>";
+                                            }
+                                                echo "</ul>
+                                            </li>";
+                                        }
+                            echo "</ul>
+                                </div>
                                 <a class='btn btn-danger excluir' href='/disciplinas/{$disciplina->getId()}/excluir' role='button'>Excluir</a>
                             </td>
                         </tr>";

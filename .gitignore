@@ -1,6 +1,8 @@
-vendor/
 cache/
+vendor/
+.vagrant/
+node_modules/
 .idea/
 config/*.local.php
-docs/*.bak
+logs/*.log
 *.lock

@@ -19,11 +19,11 @@
                 "disciplinaId = {$disciplina->getId()} AND turmaId = {$turma->getId()} AND periodoAnualId = {$trimestre->getId()}"
             )->toArray();
             $horariosTurma = isset($horariosTurma[0]) ? $horariosTurma[0] : array();
-
-            // echo "<pre>" . print_r($horariosTurma, 1);
     ?>
     <div class="row">
         <form method="POST" action="/turmas/<?php echo $turma->getId();?>/horarios">
+            <input type="hidden" name="disciplina" value="<?php echo $disciplina->getId(); ?>">
+            <input type="hidden" name="trimestre" value="<?php echo $trimestre->getId(); ?>">
             <?php
                 $dias = array(
                     "Segunda" => 'segunda', 'Terça' => 'terca', 'Quarta' => 'quarta', 'Quinta' => 'quinta', 'Sexta' => 'sexta'
@@ -33,17 +33,15 @@
             <div class="form-group col-sm-2 text-center">
                 <label for="<?php echo $index; ?>-<?php echo $turma->getId(); ?>"><?php echo $dia; ?></label>
 
-                <?php $selected = (isset($horariosTurma[$index])) ? $horariosTurma[$index] : 0; 
-                    var_dump($selected);
-                ?>
+                <?php $selected = (isset($horariosTurma[$index])) ? $horariosTurma[$index] : 0; ?>
 
                 <select class="form-control" name="<?php echo $index; ?>" id="<?php echo $index; ?>-<?php echo $turma->getId(); ?>">
-                    <option value='0'>0</option>
-                    <option value='1'>1</option>
+                    <option value='0' <?php echo ($selected == 0) ? 'selected' : ''; ?>>0</option>
+                    <option value='1' <?php echo ($selected == 1) ? 'selected' : ''; ?>>1</option>
                     <option value='2' <?php echo ($selected == 2) ? 'selected' : ''; ?>>2</option>
-                    <option value='3'>3</option>
-                    <option value='4'>4</option>
-                    <option value='5'>5</option>
+                    <option value='3' <?php echo ($selected == 3) ? 'selected' : ''; ?>>3</option>
+                    <option value='4' <?php echo ($selected == 4) ? 'selected' : ''; ?>>4</option>
+                    <option value='5' <?php echo ($selected == 5) ? 'selected' : ''; ?>>5</option>
                 </select>
             </div>
             <?php 

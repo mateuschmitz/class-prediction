@@ -2,14 +2,14 @@
 
 namespace Application\Controller;
 
-class TurmasController extends \Phalcon\Mvc\Controller
-{
-    public function index()
-    {
-        return $this->view->render('turmas', 'index');
-    }
+use Application\Model\BaseModel;
 
-    public function adicionar()
+class TurmasController extends BaseController
+{
+    public function indexAction()
+    {}
+
+    public function adicionarAction()
     {
         if ($this->request->isPost()) {
 
@@ -36,11 +36,9 @@ class TurmasController extends \Phalcon\Mvc\Controller
             $this->flashSession->success("Turma salva com sucesso!");
             return $this->response->redirect($this->request->getHTTPReferer());
         }
-
-        return $this->view->render('turmas', 'adicionar');
     }
 
-    public function editar($id)
+    public function editarAction($id)
     {
         $turma = \Application\Model\Turma::findFirst($id);
         if (!$turma) {
@@ -58,6 +56,7 @@ class TurmasController extends \Phalcon\Mvc\Controller
                 }
 
                 $turma->setSerie($dados['serie'])->setNome($dados['nome']);
+
                 if ($turma->update() == false) {
                     throw new \UnexpectedValueException("Não foi possível alterar a turma!");
                 }
@@ -71,10 +70,9 @@ class TurmasController extends \Phalcon\Mvc\Controller
         }
 
         $this->view->turma = $turma;
-        return $this->view->render('turmas', 'editar');
     }
 
-    public function excluir($id)
+    public function excluirAction($id)
     {
         $turma = \Application\Model\Turma::findFirst($id);
         if (!$turma) {
@@ -92,6 +90,56 @@ class TurmasController extends \Phalcon\Mvc\Controller
         }
 
         $this->flashSession->success("Turma deletada com sucesso!");
+    }
+
+    public function horariosAction($id)
+    {
+        $turma = \Application\Model\Turma::findFirst($id);
+        if (!$turma) {
+            $this->flashSession->error("Turma não encontrada!");
+            return $this->response->redirect($this->request->getHTTPReferer());
+        }
+
+        $disciplina = \Application\Model\Disciplina::findFirst($this->request->getPost('disciplina', 'int', 0));
+        if (!$disciplina) {
+            $this->flashSession->error("Disciplina não encontrada!");
+            return $this->response->redirect($this->request->getHTTPReferer());
+        }
+
+        $trimestre = \Application\Model\PeriodoAnual::findFirst($this->request->getPost('trimestre', 'int', 0));
+        if (!$trimestre) {
+            $this->flashSession->error("Trimestre Letivo não encontrado!");
+            return $this->response->redirect($this->request->getHTTPReferer());
+        }
+
+        $horarios = \Application\Model\TurmaDisciplina::findFirst(
+            "turmaId = {$turma->getId()} AND disciplinaId = {$disciplina->getId()} AND periodoAnualId = {$trimestre->getId()}"
+        );
+
+        if (!$horarios) {
+            $horarios = (new \Application\Model\TurmaDisciplina)
+                ->setTurmaId($turma->getId())
+                ->setDisciplinaId($disciplina->getId())
+                ->setPeriodoAnualId($trimestre->getId())
+                ->setCreated(date('Y-m-d H:i:s'));
+        }
+
+        $horarios->setSegunda($this->request->getPost('segunda', 'int', 0))
+            ->setTerca($this->request->getPost('terca', 'int', 0))
+            ->setQuarta($this->request->getPost('quarta', 'int', 0))
+            ->setQuinta($this->request->getPost('quinta', 'int', 0))
+            ->setSexta($this->request->getPost('sexta', 'int', 0));
+
+        try {
+            if ($horarios->save() == false) {
+                throw new \UnexpectedValueException("Não foi possível salvar os horários da turma!");
+            }
+        } catch (\Exception $e) {
+            $this->flashSession->error($e->getMessage());
+            return $this->response->redirect($this->request->getHTTPReferer());
+        }
+
+        $this->flashSession->success("Horários atualizados com sucesso!");
         return $this->response->redirect($this->request->getHTTPReferer());
     }
 }

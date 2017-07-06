@@ -2,14 +2,12 @@
 
 namespace Application\Controller;
 
-class FeriadosController extends \Phalcon\Mvc\Controller
+class FeriadosController extends BaseController
 {
-    public function index()
-    {
-        return $this->view->render('feriados', 'index');
-    }
+    public function indexAction()
+    {}
 
-    public function adicionar()
+    public function adicionarAction()
     {
         if ($this->request->isPost()) {
 
@@ -36,11 +34,9 @@ class FeriadosController extends \Phalcon\Mvc\Controller
             $this->flashSession->success("Feriado salvo com sucesso!");
             return $this->response->redirect($this->request->getHTTPReferer());
         }
-
-        return $this->view->render('feriados', 'adicionar');
     }
 
-    public function editar($id)
+    public function editarAction($id)
     {
         $feriado = \Application\Model\Feriado::findFirst($id);
         if (!$feriado) {
@@ -73,10 +69,9 @@ class FeriadosController extends \Phalcon\Mvc\Controller
         }
 
         $this->view->feriado = $feriado;
-        return $this->view->render('feriados', 'editar');
     }
 
-    public function excluir($id)
+    public function excluirAction($id)
     {
         $feriado = \Application\Model\Feriado::findFirst($id);
         if (!$feriado) {
@@ -94,6 +89,5 @@ class FeriadosController extends \Phalcon\Mvc\Controller
         }
 
         $this->flashSession->success("Feriado deletado com sucesso!");
-        return $this->response->redirect($this->request->getHTTPReferer());
     }
 }

@@ -2,14 +2,12 @@
 
 namespace Application\Controller;
 
-class SabadosController extends \Phalcon\Mvc\Controller
+class SabadosController extends BaseController
 {
-    public function index()
-    {
-        return $this->view->render('sabados', 'index');
-    }
+    public function indexAction()
+    {}
 
-    public function adicionar()
+    public function adicionarAction()
     {
         if ($this->request->isPost()) {
 
@@ -36,11 +34,9 @@ class SabadosController extends \Phalcon\Mvc\Controller
             $this->flashSession->success("Sábado salvo com sucesso!");
             return $this->response->redirect($this->request->getHTTPReferer());
         }
-
-        return $this->view->render('sabados', 'adicionar');
     }
 
-    public function editar($id)
+    public function editarAction($id)
     {
         $sabado = \Application\Model\DiaExtraLetivo::findFirst($id);
         if (!$sabado) {
@@ -73,10 +69,9 @@ class SabadosController extends \Phalcon\Mvc\Controller
         }
 
         $this->view->sabado = $sabado;
-        return $this->view->render('sabados', 'editar');
     }
 
-    public function excluir($id)
+    public function excluirAction($id)
     {
         $sabado = \Application\Model\DiaExtraLetivo::findFirst($id);
         if (!$sabado) {
@@ -94,6 +89,5 @@ class SabadosController extends \Phalcon\Mvc\Controller
         }
 
         $this->flashSession->success("Sábado deletado com sucesso!");
-        return $this->response->redirect($this->request->getHTTPReferer());
     }
 }

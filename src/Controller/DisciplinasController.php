@@ -2,14 +2,12 @@
 
 namespace Application\Controller;
 
-class DisciplinasController extends \Phalcon\Mvc\Controller
+class DisciplinasController extends BaseController
 {
-    public function index()
-    {
-        return $this->view->render('disciplinas', 'index');
-    }
+    public function indexAction()
+    {}
 
-    public function adicionar()
+    public function adicionarAction()
     {
         if ($this->request->isPost()) {
 
@@ -35,11 +33,9 @@ class DisciplinasController extends \Phalcon\Mvc\Controller
             $this->flashSession->success("Disciplina salva com sucesso!");
             return $this->response->redirect($this->request->getHTTPReferer());
         }
-
-        return $this->view->render('disciplinas', 'adicionar');
     }
 
-    public function editar($id)
+    public function editarAction($id)
     {
         $disciplina = \Application\Model\Disciplina::findFirst($id);
         if (!$disciplina) {
@@ -72,10 +68,9 @@ class DisciplinasController extends \Phalcon\Mvc\Controller
         }
 
         $this->view->disciplina = $disciplina;
-        return $this->view->render('disciplinas', 'editar');
     }
 
-    public function excluir($id)
+    public function excluirAction($id)
     {
         $disciplina = \Application\Model\Disciplina::findFirst($id);
         if (!$disciplina) {
@@ -93,10 +88,9 @@ class DisciplinasController extends \Phalcon\Mvc\Controller
         }
 
         $this->flashSession->success("Disciplina deletada com sucesso!");
-        return $this->response->redirect($this->request->getHTTPReferer());
     }
 
-    public function configurarAulas($disciplina, $trimestre)
+    public function configurarAulasAction($disciplina, $trimestre)
     {
         $disciplina = \Application\Model\Disciplina::findFirst($disciplina);
         if (!$disciplina) {
@@ -112,7 +106,5 @@ class DisciplinasController extends \Phalcon\Mvc\Controller
 
         $this->view->disciplina = $disciplina;
         $this->view->trimestre  = $trimestre;
-
-        return $this->view->render('disciplinas', 'configurar-aulas');
     }
 }

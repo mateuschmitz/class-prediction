@@ -2,14 +2,12 @@
 
 namespace Application\Controller;
 
-class AnosLetivosController extends \Phalcon\Mvc\Controller
+class AnosLetivosController extends BaseController
 {
-    public function index()
-    {
-        return $this->view->render('anos-letivos', 'index');
-    }
+    public function indexAction()
+    {}
 
-    public function adicionar()
+    public function adicionarAction()
     {
         if ($this->request->isPost()) {
 
@@ -47,11 +45,9 @@ class AnosLetivosController extends \Phalcon\Mvc\Controller
             $this->flashSession->success("Ano Letivo salvo com sucesso!");
             return $this->response->redirect($this->request->getHTTPReferer());
         }
-
-        return $this->view->render('anos-letivos', 'adicionar');
     }
 
-    public function editar($id)
+    public function editarAction($id)
     {
         $anoLetivo = \Application\Model\AnoEscolar::findFirst($id);
         if (!$anoLetivo) {
@@ -95,10 +91,9 @@ class AnosLetivosController extends \Phalcon\Mvc\Controller
         }
 
         $this->view->anoLetivo = $anoLetivo;
-        return $this->view->render('anos-letivos', 'editar');
     }
 
-    public function excluir($id)
+    public function excluirAction($id)
     {
         $anoLetivo = \Application\Model\AnoEscolar::findFirst($id);
         if (!$anoLetivo) {
@@ -116,6 +111,5 @@ class AnosLetivosController extends \Phalcon\Mvc\Controller
         }
 
         $this->flashSession->success("Ano Letivo deletado com sucesso!");
-        return $this->response->redirect($this->request->getHTTPReferer());
     }
 }

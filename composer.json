@@ -1,9 +1,9 @@
 {
-  "name": "mateuschmitz/class-prediction",
-  "homepage": "https://github.com/mateuschmitz/class-prediction",
-  "license": "MIT",
-  "require": {
-    "php": ">= 7.0",
-    "ext-phalcon": "3.*"
-  }
+    "name": "mateuschmitz/class-prediction",
+    "homepage": "https://github.com/mateuschmitz/class-prediction",
+    "license": "MIT",
+    "require": {
+        "php": ">= 5.6",
+        "ext-phalcon": "2.*"
+    }
 }
