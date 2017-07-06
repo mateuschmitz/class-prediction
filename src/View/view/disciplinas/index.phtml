@@ -15,7 +15,6 @@
                 <thead">
                 <th class="text-center">Id</th>
                 <th class="text-center">Nome</th>
-<!--                <th class="text-center">Aulas</th>-->
                 <th class="text-center">Criado Em</th>
                 <th class="text-center">Opções</th>
                 </thead>
@@ -33,6 +32,7 @@
                             <td>" . (new \DateTime($disciplina->getCreated()))->format('d/m/Y H:i:s') . "</td>
                             <td>
                                 <a class='btn btn-default' href='/disciplinas/{$disciplina->getId()}/editar' role='button'>Editar</a>
+                                <a class='btn btn-danger excluir' href='/disciplinas/{$disciplina->getId()}/excluir' role='button'>Excluir</a>
                                 <div class=\"btn-group\">
                                     <button type=\"button\" class=\"btn btn-info dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
                                         Configurar Aulas <span class=\"caret\"></span>
@@ -52,7 +52,6 @@
                                         }
                             echo "</ul>
                                 </div>
-                                <a class='btn btn-danger excluir' href='/disciplinas/{$disciplina->getId()}/excluir' role='button'>Excluir</a>
                             </td>
                         </tr>";
                 }
