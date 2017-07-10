@@ -4,6 +4,7 @@
     "license": "MIT",
     "require": {
         "php": ">= 5.6",
-        "ext-phalcon": "2.*"
+        "ext-phalcon": "2.*",
+        "dompdf/dompdf": "dev-master"
     }
 }

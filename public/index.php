@@ -17,6 +17,7 @@ chdir(dirname(__DIR__));
 define('DS', DIRECTORY_SEPARATOR);
 
 require('bootstrap.php');
+require('vendor/autoload.php');
 
 try {
     Bootstrap\Bootstrap::startApplication();

@@ -10,7 +10,7 @@ class RelatoriosController extends BaseController
 
             $dataPOST    = $this->request->getPost();
             $turmas      = array();
-            $trimestre   = $dataPOST['trimestre'];
+            $trimestre   = \Application\Model\PeriodoAnual::findFirst($dataPOST['trimestre']);
 
             foreach ($dataPOST['turmas'] as $turma) {
 
@@ -23,7 +23,7 @@ class RelatoriosController extends BaseController
                     $turmas[$turma->getNome()][$disciplina->getNome()] = array();
 
                     $horarios = \Application\Model\TurmaDisciplina::findFirst(
-                        "turmaId = {$turma->getId()} AND disciplinaId = {$disciplina->getId()} AND periodoAnualId = {$trimestre}"
+                        "turmaId = {$turma->getId()} AND disciplinaId = {$disciplina->getId()} AND periodoAnualId = {$trimestre->getId()}"
                     );
 
                     if ($horarios instanceOf \Application\Model\TurmaDisciplina) {
@@ -47,8 +47,67 @@ class RelatoriosController extends BaseController
                 $sabados[$sabado['data']] = $sabado['diaSubstituido'];
             }
 
-            $this->view->dados = $sabados;
+            $result = array();
+            foreach ($turmas as $class => $subjectConfigs) {
+                foreach ($subjectConfigs as $subject => $lessons) {
+
+                    $date             = new \DateTime($trimestre->getInicio());
+                    $result[$subject] = array();
+
+                    while ($date <= (new \DateTime($trimestre->getFim()))) {
+                        if (isset($lessons[$date->format('N')]) && !in_array($date->format('Y-m-d'), $feriados)) {
+                            for ($i = 1; $i <= $lessons[$date->format('N')]; $i++) {
+                                $result[$subject][strftime("%B", $date->getTimestamp())][] = $date->format('d');
+                            }
+                        }
+
+                        // caso seja sábado letivo
+                        if (isset($sabados[$date->format('Y-m-d')])) {
+                            if (isset($lessons[$sabados[$date->format('Y-m-d')]])) {
+                                for ($i = 1; $i <= $lessons[$sabados[$date->format('Y-m-d')]]; $i++) {
+                                    $result[$subject][strftime("%B", $date->getTimestamp())][] = $date->format('d');
+                                }
+                            } else {
+                                $result[$subject][strftime("%B", $date->getTimestamp())][] = $date->format('d');
+                            }
+                        }
+
+                        $date->add(new \DateInterval('P1D'));
+                    }
+                }
+            }
+
+            $this->view->dados = $this->mountBody($result);
+
+            // $dompdf = new \Dompdf\Dompdf();
+            // $dompdf->loadHtml("hello world");
+            // $dompdf->set_option('isHtml5ParserEnabled', true);
+            // $dompdf->setPaper('A4', 'landscape');
+            // $dompdf->render();
+            // $dompdf->stream();
+
+
             return $this->view->pick('relatorios/relatorioAulasPorTrimestre');
         }
+    }
+
+    private function mountBody($result)
+    {
+        // echo "\n1º Trimestre: {$iniDate->format('d/m/Y')} a {$endDate->format('d/m/Y')}\n";
+        // echo "\n+-----------+\n";
+        // echo "| Turma: {$class} |\n";
+        // echo "+-----------+\n";
+        $html = "";
+        foreach ($result as $subject => $months) {
+            $html .= "\n{$subject}\n";
+            $total = 0;
+            foreach ($months as $month => $days) {
+                $html .= utf8_encode($month) . " : " . implode(', ', $days) . "\n";
+                $total += count($days);
+            }
+            $html .= "TOTAL DE AULAS: {$total}\n";
+        }
+
+        return $html;
     }
 }
