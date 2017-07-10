@@ -21,6 +21,7 @@ class SabadosController extends BaseController
                 $data = \DateTime::createFromFormat('d/m/Y', $dados['data']);
                 $sabado = (new \Application\Model\DiaExtraLetivo())
                     ->setData($data->format('Y-m-d'))
+                    ->setDiaSubstituido($dados['dia-substituido'])
                     ->setCreated(date('Y-m-d H:i:s'));
 
                 if ($sabado->create() == false) {
@@ -54,7 +55,8 @@ class SabadosController extends BaseController
                 }
 
                 $data = \DateTime::createFromFormat('d/m/Y', $dados['data']);
-                $sabado->setData($data->format('Y-m-d'));
+                $sabado->setData($data->format('Y-m-d'))
+                    ->setDiaSubstituido($dados['dia-substituido']);
 
                 if ($sabado->update() == false) {
                     throw new \UnexpectedValueException("Não foi possível alterar o sábado letivo!");

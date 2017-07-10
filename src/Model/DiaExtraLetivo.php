@@ -8,6 +8,8 @@ class DiaExtraLetivo extends BaseModel
 
     protected $data;
 
+    protected $diaSubstituido;
+
     protected $created;
 
     protected $updated;

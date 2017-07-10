@@ -15,6 +15,7 @@
                 <thead">
                 <th class="text-center">Id</th>
                 <th class="text-center">Data</th>
+                <th class="text-center">Dis Substituído</th>
                 <th class="text-center">Criado Em</th>
                 <th class="text-center">Opções</th>
                 </thead>
@@ -25,9 +26,11 @@
                 }
 
                 foreach ($dias as $dia) {
+                    $diasSemana = array('', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta');
                     echo "<tr>
                             <td>{$dia->getId()}</td>
                             <td>" . (new \DateTime($dia->getData()))->format('d/m/Y') . "</td>
+                            <td>{$diasSemana[$dia->getDiaSubstituido()]}</td>
                             <td>" . (new \DateTime($dia->getCreated()))->format('d/m/Y H:i:s') . "</td>
                             <td>
                                 <a class='btn btn-default' href='/sabados/{$dia->getId()}/editar' role='button'>Editar</a>

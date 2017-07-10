@@ -18,10 +18,22 @@ $('.excluir').click(function (event) {
     }
 });
 
+/**
+ * Utilizado para funcionamento do submenu
+ */
 $(document).ready(function(){
     $('.dropdown-submenu a.test').on("click", function(e){
         $(this).next('ul').toggle();
         e.stopPropagation();
         e.preventDefault();
     });
+});
+
+/**
+ * Ao trocar o ano, altera os trimestres que podem ser selecionados
+ */
+$('#ano').change(function() {
+    var id = $(this).val();
+    $('#trimestre option').prop('disabled', true);
+    $('#trimestre option[data-ano="' + id + '"]').prop('disabled', false);    
 });

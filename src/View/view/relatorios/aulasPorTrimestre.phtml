@@ -1,0 +1,84 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p><?php $this->flashSession->output() ; ?></p>
+        </div>
+        <div class="col-sm-12">
+            <h1>Relatório de Aulas Por Trimestre</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <form method="POST" action="/relatorios/aulas-por-trimestre">
+            <div class="form-group col-sm-6">
+                <label for="ano">Selecione o ano</label>
+                <select class="form-control" name="ano" id="ano" required>
+                    <option></option>
+                    <?php
+                        $anos = \Application\Model\AnoEscolar::find(array("order" => 'id DESC'));
+                        foreach ($anos as $ano) {
+                            $string = sprintf(
+                                "%u (%s / %s)", 
+                                $ano->getAno(), 
+                                (new \DateTime($ano->getInicio()))->format('d/m'), 
+                                (new \DateTime($ano->getFim()))->format('d/m'));
+                            echo "<option value='{$ano->getId()}'>{$string}</option>";
+                        }
+                    ?>
+                </select>
+            </div>
+            <div class="form-group col-sm-6">
+                <label for="trimestre">Selecione o trimestre</label>
+                <select class="form-control" name="trimestre" id="trimestre" required>
+                    <option></option>
+                    <?php
+                        $trimestres = \Application\Model\PeriodoAnual::find();
+                        foreach ($trimestres as $trimestre) {
+                            $string = sprintf(
+                                "%s (%s / %s)", 
+                                $trimestre->getNome(), 
+                                (new \DateTime($trimestre->getInicio()))->format('d/m'), 
+                                (new \DateTime($trimestre->getFim()))->format('d/m'));
+                            echo "<option value='{$trimestre->getId()}' data-ano='{$trimestre->anoEscolar->getId()}' disabled>{$string}</option>";
+                        }
+                    ?>
+                </select>
+            </div>
+
+            <div class="form-group col-sm-12 mar-top-20">
+                <label for="">Selecione as disciplinas</label>
+            </div>
+            <?php
+                $disciplinas = \Application\Model\Disciplina::find();
+                foreach ($disciplinas as $disciplina) {
+                    echo "<div class='col-sm-2'><div class='checkbox'>
+                        <label>
+                            <input type='checkbox' name='disciplinas[]' value='{$disciplina->getId()}' checked> {$disciplina->getNome()}
+                        </label>
+                    </div></div>";
+                }                
+            ?>
+
+            <div class="form-group col-sm-12 mar-top-20">
+                <label for="">Selecione as turmas</label>
+            </div>
+            <?php
+                $turmas = \Application\Model\Turma::find();
+                foreach ($turmas as $turma) {
+                    echo "<div class='col-sm-2'><div class='checkbox'>
+                        <label>
+                            <input type='checkbox' name='turmas[]' value='{$turma->getId()}' checked>Turma {$turma->getNome()}
+                        </label>
+                    </div></div>";
+                }                
+            ?>
+
+            <div class="col-sm-4 col-sm-offset-8 mar-top-20 mar-bot-30">
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Gerar Relatório</button>
+            </div>
+        </form>
+    </div>
+
+    
+</div>

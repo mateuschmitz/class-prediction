@@ -17,6 +17,18 @@
                     value="<?php echo (new \DateTime($sabado->getData()))->format('d/m/Y'); ?>" required>
             </div>
 
+            <div class="form-group col-sm-4">
+                <label for="dia-substituido">Dia Substituído</label>
+                <select class="form-control" name="dia-substituido" id="dia-substituido" required>
+                    <option></option>
+                    <option value="1" <?php echo ($sabado->getDiaSubstituido() == 1) ? 'selected' : ''; ?>>Segunda</option>
+                    <option value="2" <?php echo ($sabado->getDiaSubstituido() == 2) ? 'selected' : ''; ?>>Terça</option>
+                    <option value="3" <?php echo ($sabado->getDiaSubstituido() == 3) ? 'selected' : ''; ?>>Quarta</option>
+                    <option value="4" <?php echo ($sabado->getDiaSubstituido() == 4) ? 'selected' : ''; ?>>Quinta</option>
+                    <option value="5" <?php echo ($sabado->getDiaSubstituido() == 5) ? 'selected' : ''; ?>>Sexta</option>
+                </select>
+            </div>
+
             <div class="form-group col-sm-offset-10 col-sm-2 text-right">
                 <button type="submit" class="btn btn-primary btn-block">Salvar</button>
             </div>

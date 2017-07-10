@@ -34,5 +34,5 @@ $router->add(
     array('controller' => 1, 'action' => 'configurarAulas', 'disciplina' => 2, 'trimestre' => 3
 ))->via('GET');
 
-
+$router->add('/:controller/aulas-por-trimestre', array('controller' => 1, 'action' => 'aulasPorTrimestre'))->via(array('GET', 'POST'));
 return $router;
