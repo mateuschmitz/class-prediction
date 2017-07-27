@@ -34,6 +34,25 @@
                             <td>
                                 <a class='btn btn-default' href='/turmas/{$turma->getId()}/editar' role='button'>Editar</a>
                                 <a class='btn btn-danger excluir' href='/turmas/{$turma->getId()}/excluir' role='button'>Excluir</a>
+                                <div class=\"btn-group\">
+                                    <button type=\"button\" class=\"btn btn-info dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
+                                        Configurar Aulas <span class=\"caret\"></span>
+                                    </button>
+                                    <ul class=\"dropdown-menu\">";
+
+                                        $anos = \Application\Model\AnoEscolar::find();
+                                        foreach ($anos as $ano) {
+                                            echo "<li class='dropdown-submenu'>
+                                                    <a class='test test-1' href='#'>{$ano->getAno()} <span class='caret'></span></a>
+                                                    <ul class='dropdown-menu'>";
+                                            foreach ($ano->getPeriodosAnuais() as $trimestre) {
+                                                echo "<li><a href='/turmas/{$turma->getId()}/configurar-aulas/{$trimestre->getId()}'>{$trimestre->getNome()}</a></li>";
+                                            }
+                                                echo "</ul>
+                                            </li>";
+                                        }
+                            echo "</ul>
+                                </div>
                             </td>
                         </tr>";
                 }

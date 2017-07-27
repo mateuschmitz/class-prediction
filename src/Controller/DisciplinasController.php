@@ -89,22 +89,4 @@ class DisciplinasController extends BaseController
 
         $this->flashSession->success("Disciplina deletada com sucesso!");
     }
-
-    public function configurarAulasAction($disciplina, $trimestre)
-    {
-        $disciplina = \Application\Model\Disciplina::findFirst($disciplina);
-        if (!$disciplina) {
-            $this->flashSession->error("Disciplina não encontrada!");
-            return $this->response->redirect($this->request->getHTTPReferer());
-        }
-
-        $trimestre = \Application\Model\PeriodoAnual::findFirst($trimestre);
-        if (!$trimestre) {
-            $this->flashSession->error("Trimestre não encontrado!");
-            return $this->response->redirect($this->request->getHTTPReferer());
-        }
-
-        $this->view->disciplina = $disciplina;
-        $this->view->trimestre  = $trimestre;
-    }
 }

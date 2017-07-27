@@ -52,12 +52,12 @@ class RelatoriosController extends BaseController
                 foreach ($subjectConfigs as $subject => $lessons) {
 
                     $date             = new \DateTime($trimestre->getInicio());
-                    $result[$subject] = array();
+                    $result[$class][$subject] = array();
 
                     while ($date <= (new \DateTime($trimestre->getFim()))) {
                         if (isset($lessons[$date->format('N')]) && !in_array($date->format('Y-m-d'), $feriados)) {
                             for ($i = 1; $i <= $lessons[$date->format('N')]; $i++) {
-                                $result[$subject][strftime("%B", $date->getTimestamp())][] = $date->format('d');
+                                $result[$class][$subject][strftime("%B", $date->getTimestamp())][] = $date->format('d');
                             }
                         }
 
@@ -65,10 +65,10 @@ class RelatoriosController extends BaseController
                         if (isset($sabados[$date->format('Y-m-d')])) {
                             if (isset($lessons[$sabados[$date->format('Y-m-d')]])) {
                                 for ($i = 1; $i <= $lessons[$sabados[$date->format('Y-m-d')]]; $i++) {
-                                    $result[$subject][strftime("%B", $date->getTimestamp())][] = $date->format('d');
+                                    $result[$class][$subject][strftime("%B", $date->getTimestamp())][] = $date->format('d');
                                 }
                             } else {
-                                $result[$subject][strftime("%B", $date->getTimestamp())][] = $date->format('d');
+                                $result[$class][$subject][strftime("%B", $date->getTimestamp())][] = $date->format('d');
                             }
                         }
 
@@ -78,34 +78,29 @@ class RelatoriosController extends BaseController
             }
 
             $this->view->dados = $this->mountBody($result);
-
-            // $dompdf = new \Dompdf\Dompdf();
-            // $dompdf->loadHtml("hello world");
-            // $dompdf->set_option('isHtml5ParserEnabled', true);
-            // $dompdf->setPaper('A4', 'landscape');
-            // $dompdf->render();
-            // $dompdf->stream();
-
-
             return $this->view->pick('relatorios/relatorioAulasPorTrimestre');
         }
     }
 
     private function mountBody($result)
     {
-        // echo "\n1º Trimestre: {$iniDate->format('d/m/Y')} a {$endDate->format('d/m/Y')}\n";
-        // echo "\n+-----------+\n";
-        // echo "| Turma: {$class} |\n";
-        // echo "+-----------+\n";
         $html = "";
-        foreach ($result as $subject => $months) {
-            $html .= "\n{$subject}\n";
-            $total = 0;
-            foreach ($months as $month => $days) {
-                $html .= utf8_encode($month) . " : " . implode(', ', $days) . "\n";
-                $total += count($days);
+        foreach ($result as $class => $disciplina) {
+
+            $html .= "\n+-----------+\n";
+            $html .= "| Turma: {$class} |\n";
+            $html .= "+-----------+\n";
+
+            foreach ($disciplina as $subject => $months) {
+                $html .= "\n{$subject}\n";
+                $html .= str_repeat("-", strlen($subject)) . "\n";
+                $total = 0;
+                foreach ($months as $month => $days) {
+                    $html .= utf8_encode($month) . " : " . implode(', ', $days) . "\n";
+                    $total += count($days);
+                }
+                $html .= "TOTAL DE AULAS: {$total}\n";
             }
-            $html .= "TOTAL DE AULAS: {$total}\n";
         }
 
         return $html;

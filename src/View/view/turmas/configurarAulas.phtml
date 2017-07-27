@@ -1,0 +1,60 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p><?php $this->flashSession->output(); ?></p>
+        </div>
+        <div class="col-sm-12">
+            <h1>
+                Horários da Turma <?php echo $turma->getNome();?>
+                <small><?php echo $trimestre->getNome() . " de " . $trimestre->getAnoEscolar()->getAno();?></small>
+            </h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <form method="POST" action="/turmas/<?php echo $turma->getId();?>/horarios">
+            <input type="hidden" name="trimestre" value="<?php echo $trimestre->getId(); ?>">
+            <?php
+                $disciplinas = \Application\Model\Disciplina::find();
+                foreach ($disciplinas as $disciplina) {
+                    $horarios = \Application\Model\TurmaDisciplina::find(
+                        "disciplinaId = {$disciplina->getId()} AND turmaId = {$turma->getId()} AND periodoAnualId = {$trimestre->getId()}"
+                    )->toArray();            
+                    $horarios = isset($horarios[0]) ? $horarios[0] : array();
+                    $dias = array(
+                        "Segunda" => 'segunda', 'Terça' => 'terca', 'Quarta' => 'quarta', 'Quinta' => 'quinta', 'Sexta' => 'sexta'
+                    );
+
+                    echo "<div class='form-group col-sm-2'><h3>{$disciplina->getNome()}</h3></div>";
+                    foreach ($dias as $dia => $index) {
+            ?>
+                <div class="form-group col-sm-2 text-center">
+                    <label for="<?php echo $index; ?>-<?php echo $disciplina->getId(); ?>"><?php echo $dia; ?></label>
+
+                        <?php 
+                            $selected = (isset($horarios[$index])) ? $horarios[$index] : 0; 
+                            $name = "disciplinas[{$disciplina->getId()}][{$index}]";
+                        ?>
+                        <select class="form-control" name="<?php echo $name; ?>" id="<?php echo $index; ?>-<?php echo $disciplina->getId(); ?>">
+                            <option value='0' <?php echo ($selected == 0) ? 'selected' : ''; ?>>0</option>
+                            <option value='1' <?php echo ($selected == 1) ? 'selected' : ''; ?>>1</option>
+                            <option value='2' <?php echo ($selected == 2) ? 'selected' : ''; ?>>2</option>
+                            <option value='3' <?php echo ($selected == 3) ? 'selected' : ''; ?>>3</option>
+                            <option value='4' <?php echo ($selected == 4) ? 'selected' : ''; ?>>4</option>
+                            <option value='5' <?php echo ($selected == 5) ? 'selected' : ''; ?>>5</option>
+                    </select>
+                </div>
+            <?php
+                    }
+                    echo "<div class='form-group col-sm-12 text-center'><hr></div>";
+                }
+            ?>
+            <hr>
+            <div class="form-group col-sm-2 col-sm-offset-10 text-right" style="margin-top:25px; margin-bottom: 20px;">
+            <button type="submit" class="btn btn-primary btn-block">Salvar Turma <?php echo $turma->getNome(); ?></button>
+        </div>
+        </form>
+    </div>
+    
+</div>

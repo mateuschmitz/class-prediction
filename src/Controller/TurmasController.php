@@ -92,6 +92,24 @@ class TurmasController extends BaseController
         $this->flashSession->success("Turma deletada com sucesso!");
     }
 
+    public function configurarAulasAction($turma, $trimestre)
+    {
+        $turma = \Application\Model\Turma::findFirst($turma);
+        if (!$turma) {
+            $this->flashSession->error("Turma não encontrada!");
+            return $this->response->redirect($this->request->getHTTPReferer());
+        }
+
+        $trimestre = \Application\Model\PeriodoAnual::findFirst($trimestre);
+        if (!$trimestre) {
+            $this->flashSession->error("Trimestre não encontrado!");
+            return $this->response->redirect($this->request->getHTTPReferer());
+        }
+
+        $this->view->turma = $turma;
+        $this->view->trimestre  = $trimestre;
+    }
+
     public function horariosAction($id)
     {
         $turma = \Application\Model\Turma::findFirst($id);
@@ -100,46 +118,54 @@ class TurmasController extends BaseController
             return $this->response->redirect($this->request->getHTTPReferer());
         }
 
-        $disciplina = \Application\Model\Disciplina::findFirst($this->request->getPost('disciplina', 'int', 0));
-        if (!$disciplina) {
-            $this->flashSession->error("Disciplina não encontrada!");
+        if (empty($this->request->getPost('disciplinas'))) {
+            $this->flashSession->error("Dados não encontrados!");
             return $this->response->redirect($this->request->getHTTPReferer());
         }
 
-        $trimestre = \Application\Model\PeriodoAnual::findFirst($this->request->getPost('trimestre', 'int', 0));
-        if (!$trimestre) {
-            $this->flashSession->error("Trimestre Letivo não encontrado!");
-            return $this->response->redirect($this->request->getHTTPReferer());
-        }
+        $message = 'Horários atualizados com sucesso!';
+        foreach ($this->request->getPost('disciplinas') as $idDiciplina => $dias) {
+            try {
+                $disciplina = \Application\Model\Disciplina::findFirst($idDiciplina);
+                if (!$disciplina) {
+                    throw new \UnexpectedValueException("Disciplina não encontrada: {$idDiciplina}");
+                }
 
-        $horarios = \Application\Model\TurmaDisciplina::findFirst(
-            "turmaId = {$turma->getId()} AND disciplinaId = {$disciplina->getId()} AND periodoAnualId = {$trimestre->getId()}"
-        );
+                $trimestre = \Application\Model\PeriodoAnual::findFirst($this->request->getPost('trimestre', 'int', 0));
+                if (!$trimestre) {
+                    throw new \UnexpectedValueException("Trimestre letivo não encontrado");
+                }
 
-        if (!$horarios) {
-            $horarios = (new \Application\Model\TurmaDisciplina)
-                ->setTurmaId($turma->getId())
-                ->setDisciplinaId($disciplina->getId())
-                ->setPeriodoAnualId($trimestre->getId())
-                ->setCreated(date('Y-m-d H:i:s'));
-        }
+                $horarios = \Application\Model\TurmaDisciplina::findFirst(
+                    "turmaId = {$turma->getId()} AND disciplinaId = {$disciplina->getId()} AND periodoAnualId = {$trimestre->getId()}"
+                );
 
-        $horarios->setSegunda($this->request->getPost('segunda', 'int', 0))
-            ->setTerca($this->request->getPost('terca', 'int', 0))
-            ->setQuarta($this->request->getPost('quarta', 'int', 0))
-            ->setQuinta($this->request->getPost('quinta', 'int', 0))
-            ->setSexta($this->request->getPost('sexta', 'int', 0));
+                if (!$horarios) {
+                    $horarios = (new \Application\Model\TurmaDisciplina)
+                        ->setTurmaId($turma->getId())
+                        ->setDisciplinaId($disciplina->getId())
+                        ->setPeriodoAnualId($trimestre->getId())
+                        ->setCreated(date('Y-m-d H:i:s'));
+                }
 
-        try {
-            if ($horarios->save() == false) {
-                throw new \UnexpectedValueException("Não foi possível salvar os horários da turma!");
+                $horarios->setSegunda($dias['segunda'])
+                    ->setTerca($dias['terca'])
+                    ->setQuarta($dias['quarta'])
+                    ->setQuinta($dias['quinta'])
+                    ->setSexta($dias['sexta']);
+
+                if ($horarios->save() == false) {
+                    throw new \UnexpectedValueException("Não foi possível salvar os horários da turma!");
+                }
+
+            } catch (\Exception $e) {
+                $this->flashSession->error($e->getMessage());
+                continue;
             }
-        } catch (\Exception $e) {
-            $this->flashSession->error($e->getMessage());
-            return $this->response->redirect($this->request->getHTTPReferer());
+
         }
 
-        $this->flashSession->success("Horários atualizados com sucesso!");
+        $this->flashSession->success($message);
         return $this->response->redirect($this->request->getHTTPReferer());
     }
 }
