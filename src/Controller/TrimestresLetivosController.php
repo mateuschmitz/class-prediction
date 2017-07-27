@@ -4,7 +4,7 @@ namespace Application\Controller;
 
 class TrimestresLetivosController extends BaseController
 {
-    public function index()
+    public function indexAction()
     {}
 
     public function adicionarAction()
