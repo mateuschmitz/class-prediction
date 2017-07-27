@@ -15,7 +15,7 @@ use PDO;
 
 return array(
     'databases' => array(
-        'akademic' => array(
+        'db' => array(
             "adapter"  => "Phalcon\Db\Adapter\Pdo\Mysql", // optional if MySQL Adapter
             "host"     => "HOST_MYSQL",
             "username" => "USERNAME",
