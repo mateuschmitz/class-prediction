@@ -1,0 +1,42 @@
+version: '2'
+services:
+  web:
+    build: .
+    image: mateuschmitz/php-phalcon:apache-7.0
+    container_name: class-prediction-web
+    hostname: class-prediction-web
+    working_dir: /app
+    depends_on:
+      - mysql
+    environment:
+      - APPLICATION_ENV=development
+    volumes:
+      - ./:/app
+      - ~/.ssh:/root/.ssh
+      - ./docs/apache/vhost:/etc/apache2/sites-available/000-default.conf
+
+  mysql:
+    image: mysql/mysql-server:5.6
+    container_name: class-prediction-mysql
+    hostname: class-prediction-mysql
+    volumes:
+      - ./docs/sql:/docker-entrypoint-initdb.d
+      - /etc/localtime:/etc/localtime
+    environment:
+      - MYSQL_ROOT_PASSWORD=102030
+      - MYSQL_DATABASE=class-prediction
+      - MYSQL_USER=class-prediction
+      - MYSQL_PASSWORD=class-prediction
+
+  composer:
+    image: composer/composer
+    network_mode: host
+    command: install --ignore-platform-reqs --prefer-dist -o
+    volumes:
+      - ~/.ssh:/root/.ssh
+      - ./:/app
+
+networks:
+  default:
+    external:
+      name: dev

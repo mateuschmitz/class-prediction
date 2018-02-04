@@ -1,0 +1,22 @@
+<VirtualHost localhost.com:80>
+        ServerName class-prediction-web
+        ServerAlias www.class-prediction-web
+        ServerAdmin webmaster@localhost
+        RewriteEngine On
+
+        DocumentRoot /app/public
+        <Directory /app/public>
+                AllowOverride All
+                Order allow,deny
+                allow from all
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel warn
+
+        CustomLog ${APACHE_LOG_DIR}/access.log combinedtimezone
+
+</VirtualHost>
