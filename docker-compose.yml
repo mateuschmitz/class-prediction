@@ -13,23 +13,22 @@ services:
     volumes:
       - ./:/app
       - ~/.ssh:/root/.ssh
-      - ./docs/apache/vhost:/etc/apache2/sites-available/000-default.conf
+      - ./files/apache/vhost:/etc/apache2/sites-available/000-default.conf
 
   mysql:
     image: mysql/mysql-server:5.6
     container_name: class-prediction-mysql
     hostname: class-prediction-mysql
     volumes:
-      - ./docs/sql:/docker-entrypoint-initdb.d
+      - ./files/sql:/docker-entrypoint-initdb.d
       - /etc/localtime:/etc/localtime
-      - ./docs/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+      - ./files/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
     environment:
       - MYSQL_ROOT_PASSWORD=102030
-      - MYSQL_DATABASE=classprediction
-      - MYSQL_USER=classprediction
-      - MYSQL_PASSWORD=classprediction
+      - MYSQL_DATABASE=class-prediction
+      - MYSQL_USER=class-prediction
+      - MYSQL_PASSWORD=class-prediction
       - MYSQL_ROOT_HOST=%
-      # - MYSQL_HOST=%
 
   composer:
     image: composer/composer
