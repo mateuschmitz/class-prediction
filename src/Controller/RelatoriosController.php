@@ -63,7 +63,7 @@ class RelatoriosController extends BaseController
 
                         // caso seja sábado letivo
                         if (isset($sabados[$date->format('Y-m-d')])) {
-                            if (isset($lessons[$sabados[$date->format('Y-m-d')]])) {
+                            if (isset($lessons[$sabados[$date->format('Y-m-d')]]) && $lessons[$sabados[$date->format('Y-m-d')]] > 0) {
                                 for ($i = 1; $i <= $lessons[$sabados[$date->format('Y-m-d')]]; $i++) {
                                     $result[$class][$subject][strftime("%B", $date->getTimestamp())][] = $date->format('d');
                                 }
