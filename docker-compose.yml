@@ -22,11 +22,14 @@ services:
     volumes:
       - ./docs/sql:/docker-entrypoint-initdb.d
       - /etc/localtime:/etc/localtime
+      - ./docs/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
     environment:
       - MYSQL_ROOT_PASSWORD=102030
-      - MYSQL_DATABASE=class-prediction
-      - MYSQL_USER=class-prediction
-      - MYSQL_PASSWORD=class-prediction
+      - MYSQL_DATABASE=classprediction
+      - MYSQL_USER=classprediction
+      - MYSQL_PASSWORD=classprediction
+      - MYSQL_ROOT_HOST=%
+      # - MYSQL_HOST=%
 
   composer:
     image: composer/composer
